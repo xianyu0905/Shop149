@@ -80,7 +80,9 @@
                 <!--滑块-->
                 <div class="carousel-inner" style="height: 220px">
                     <div class="item active">
+                      <%--  <img src="${pageContext.request.contextPath}/images/banner1.jpg" alt="">--%>
                         <img src="${pageContext.request.contextPath}/images/banner1.jpg" alt="">
+
                     </div>
                     <div class="item">
                         <img src="${pageContext.request.contextPath}/images/banner2.jpg" alt="">
@@ -118,6 +120,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-xs-12">
+                        <!--首页的地址-->
                         <form class="form-inline hot-search"
                               action="${pageContext.request.contextPath}/front/product/searchAllProducts"
                               method="post">

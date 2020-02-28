@@ -118,6 +118,7 @@ body{
 }
 .art-back img{
 	width: 210px;
+    border-radius: 30px;
 }
 .content-title{
 	margin: 0px;
@@ -373,7 +374,7 @@ body{
 .hot-item .user .avatar >img{
 	height: 40px;
     width: auto;
-    border-radius: 50%;
+    /*border-radius: 50%;*/
 }
 
 .hot-item:hover,.hot-item:active,.hot-item:focus,.hot-item:visited{
@@ -417,7 +418,7 @@ body{
 }
 .hot-search{
     border-bottom: 1px solid #efefef;
-   
+
     margin: 0px 20px;
     padding: 20px 0px;
 }

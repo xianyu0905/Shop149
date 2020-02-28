@@ -51,6 +51,26 @@
             });
             //调整footer 的位置
             autoFooterHeight();
+
+        });
+
+        $(document).ready(function(){
+            $('#text_box').on('input propertychange', function() {
+                var number = this.value;
+                var inventory  = $('#inventory').html();
+                var inventorys  = $('#inventorys').html();
+                if (parseInt(number) > parseInt(inventory)+1) {
+                    $('#inventory').html('0');
+                    $('#text_box').val(inventorys);
+                }
+                else if (parseInt(number)<=0){
+                    $('#inventory').html('1');
+                    $('#text_box').val(parseInt(inventorys)-1);
+                }
+                else {
+                    $('#inventory').html((parseInt(inventorys) - parseInt(number)));
+                }
+            });
         });
 
         //TODO: 设置固定在底部的footer 可以自适应高度
@@ -125,6 +145,9 @@
                     }
                 });
         }
+
+
+
     </script>
 
 </head>
@@ -159,7 +182,7 @@
             </div>
             <div class="pic">
                 <span style="margin-left: 30px;">库存:</span>
-                <span class="priceIcon" class="pcc">${product.inventory}</span>
+                <span class="priceIcon" id="inventorys" class="pcc">${product.inventory}</span>
             </div>
             <div class="sellnum">
                 <div class="sellnumWrap">
