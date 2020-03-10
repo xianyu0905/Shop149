@@ -23,6 +23,11 @@ public class Order {
     private Customer customer;
     /*商品总价*/
     private Double price;
+
+    /**
+     * 顾客ID
+     */
+    private Integer customerId;
     /*订单的创建时间*/
     private Date createDate;
     /*商品数量*/

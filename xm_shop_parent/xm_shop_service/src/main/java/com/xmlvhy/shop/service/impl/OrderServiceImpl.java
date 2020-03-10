@@ -194,6 +194,22 @@ public class OrderServiceImpl implements OrderService {
     }
 
     /**
+     *功能描述: 确认发货
+     * @Author 小莫
+     * @Date 9:40 2019/03/30
+     * @Param [id, confirmOrderId]
+     * @return java.lang.Boolean
+     */
+    @Override
+    public Boolean confirmSendOrderByCustomerIdAndOrderId(Integer id, Integer confirmOrderId) {
+        int rows = orderDao.updateOrderStatusByCustomerIdAndOrderId(id, confirmOrderId,2);
+        if (rows >= 1) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
      *功能描述: 获取不同状态的订单列表
      * @Author 小莫
      * @Date 11:20 2019/03/30

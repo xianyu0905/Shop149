@@ -28,6 +28,8 @@ public interface OrderService {
 
     Boolean confirmOrderByCustomerIdAndOrderId(Integer id, Integer confirmOrderId);
 
+    Boolean confirmSendOrderByCustomerIdAndOrderId(Integer id, Integer confirmOrderId);
+
     List<OrderVo> getDifferenceStatusOrders(Integer id,Integer status);
 
     Boolean modifyOrderStatusByCustomerIdAndOrderNo(Integer id, String out_trade_no);

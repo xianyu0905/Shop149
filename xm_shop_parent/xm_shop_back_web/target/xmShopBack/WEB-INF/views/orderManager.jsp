@@ -21,6 +21,12 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrapValidator.min.css"/>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/zshop.css"/>
 
+    <style type="text/css">
+        .btn_b .selected{
+            background: white;
+        }
+
+    </style>
     <script>
         $(function () {
             $("tr.parent").click(function(){
@@ -60,6 +66,40 @@
             });
         });
 
+        //显示确认发货的提示框
+        function showConfirmModal(confirmOrderId,userId) {
+            console.log(confirmOrderId);
+            $('#confirmOrderId').val(confirmOrderId);
+            $('#confirmUserId').val(userId);
+            $('#confirmOrderModal').modal('show');
+        }
+
+        //确认发货
+        function confirmReceiveOrder() {
+            $.post(
+                '${pageContext.request.contextPath}/admin/order/confirmSendOrder',
+                {
+                    'confirmOrderId': $('#confirmOrderId').val(),
+                    'userId': $('#confirmUserId').val(),
+
+                },
+                function (result) {
+                    if (result.status == 1) {
+                        layer.msg(result.message, {
+                            time: 1000,
+                            skin: 'successMsg'
+                        }, function () {
+                            location.reload();
+                        });
+                    } else {
+                        layer.msg(result.message, {
+                            time: 1500,
+                            skin: 'errorMsg'
+                        });
+                    }
+                }
+            );
+        }
     </script>
 </head>
 
@@ -111,6 +151,7 @@
 
                             <button class="btn btn-info" data-toggle="modal"
                                     data-target="#addUserModal">展开订单详情</button>
+
                         </td>
                     </tr>
                     <tr class="child_row_${idxStatus.index+1} text-info">
@@ -119,6 +160,7 @@
                                 <th class="text-center">数量</th>
                                 <th class="text-center">单价</th>
                                 <th class="text-center">总价</th>
+
                     </tr>
                     <c:forEach items="${order.orderItemList}" var="orderItem" >
                         <tr  class="child_row_${idxStatus.index+1}">
@@ -129,6 +171,18 @@
                             <td>${orderItem.num}</td>
                             <td>${orderItem.product.price}</td>
                             <td>${orderItem.price}</td>
+                            <td  class="text-center btn_b" rowspan="${order.orderItemList.size()}" style="text-align: center;border: 0px;">
+
+                                <span>
+                                    <c:if test="${order.status == 0}">待支付</c:if>
+                                    <c:if test="${order.status == 1}">
+                                        <button class="btn btn_info" onclick="showConfirmModal(${order.id},${order.customerId})" >确认发货</button>
+                                    </c:if>
+                                    <c:if test="${order.status == 2}">卖家已发货待收货</c:if>
+                                    <c:if test="${order.status == 3}">交易已完成</c:if>
+                                    <c:if test="${order.status == 4}">订单已取消</c:if>
+                                </span>
+                            </td>
                         </tr>
                     </c:forEach>
                 </c:forEach>
@@ -140,6 +194,31 @@
     </div>
 </div>
 
+
+<%--确认收货--%>
+<div class="modal fade" tabindex="-1" id="confirmOrderModal" style="top: 10%;">
+    <!-- 窗口声明 -->
+    <div class="modal-dialog modal-sm">
+        <!-- 内容声明 -->
+        <div class="modal-content">
+            <!-- 头部、主体、脚注 -->
+            <div class="modal-header">
+                <button class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">提示消息</h4>
+            </div>
+            <div class="modal-body text-center">
+                <h5 class="text-warning" style="letter-spacing: 1px">确认完成发货吗？</h5>
+            </div>
+            <div class="modal-footer">
+                <input type="hidden" name="confirmOrderId" id="confirmOrderId">
+                <input type="hidden" name="userId" id="confirmUserId">
+                <button class="btn btn-primary updateProType" data-dismiss="modal" onclick="confirmReceiveOrder()">确认
+                </button>
+                <button class="btn btn-primary cancel" data-dismiss="modal">取消</button>
+            </div>
+        </div>
+    </div>
+</div>
 </body>
 
 </html>

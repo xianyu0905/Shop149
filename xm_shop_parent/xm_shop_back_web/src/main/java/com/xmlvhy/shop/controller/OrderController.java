@@ -59,10 +59,10 @@ public class OrderController {
      */
     @RequestMapping("/allOrders")
     public String allOrders(Integer pageNum,Model model){
-        if (ObjectUtils.isEmpty(pageNum)) {
-            pageNum = PaginationConstant.PAGE_NUM;
-        }
-        PageHelper.startPage(pageNum,PaginationConstant.PAGE_SIZE);
+//        if (ObjectUtils.isEmpty(pageNum)) {
+//            pageNum = PaginationConstant.PAGE_NUM;
+//        }
+//        PageHelper.startPage(pageNum,15);
         //获取所有订单列表
         List<OrderVo> orderVoList = orderService.getAllOrders();
         PageInfo<OrderVo> pageInfo = new PageInfo<>(orderVoList);
@@ -70,6 +70,24 @@ public class OrderController {
         log.info("所有订单列表:"+ JSON.toJSONString(orderVoList));
         return "orderManager";
     }
+
+    /**
+     *功能描述: 确认收货
+     * @Author 小莫
+     * @Date 9:44 2019/03/30
+     * @Param [confirmOrderId, session]
+     * @return com.xmlvhy.shop.common.utils.ResponseResult
+     */
+    @RequestMapping("confirmSendOrder")
+    @ResponseBody
+    public ResponseResult confirmReceiveOrder(Integer confirmOrderId,Integer userId, HttpSession session){
+
+        if (orderService.confirmSendOrderByCustomerIdAndOrderId(userId,confirmOrderId)) {
+            return ResponseResult.success("已确认发货");
+        }
+        return ResponseResult.fail("确认发货失败");
+    }
+
 
 
 }

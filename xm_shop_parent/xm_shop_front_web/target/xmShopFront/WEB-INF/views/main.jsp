@@ -80,9 +80,7 @@
                 <!--滑块-->
                 <div class="carousel-inner" style="height: 220px">
                     <div class="item active">
-                      <%--  <img src="${pageContext.request.contextPath}/images/banner1.jpg" alt="">--%>
                         <img src="${pageContext.request.contextPath}/images/banner1.jpg" alt="">
-
                     </div>
                     <div class="item">
                         <img src="${pageContext.request.contextPath}/images/banner2.jpg" alt="">
