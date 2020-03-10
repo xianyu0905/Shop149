@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>小莫商城-后台管理系统</title>
+    <title>在线花城-后台管理系统</title>
     <meta charset="utf-8">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap.min.css" />
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/mycss.css" />
@@ -87,8 +87,8 @@
     <div class="panel panel-primary div-shadow">
         <!-- h3标签加载自定义样式，完成文字居中和上下间距调整 -->
         <div class="panel-heading">
-            <h3>小莫商城系统 1.0</h3>
-            <span>XMSHOP Manager System</span>
+            <h3>在线花城系统 1.0</h3>
+            <span>Online Flower Manager System</span>
         </div>
         <div class="panel-body">
             <!-- login form start -->
