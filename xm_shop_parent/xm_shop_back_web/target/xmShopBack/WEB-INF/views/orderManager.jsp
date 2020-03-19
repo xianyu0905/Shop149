@@ -110,7 +110,37 @@
         <h3 class="panel-title">订单管理</h3>
     </div>
     <div class="panel-body">
+        <div class="showmargersearch">
+            <form action="${pageContext.request.contextPath}/admin/order/getOrdersByParams"
+                  class="form-inline" method="post" id="frmSearch">
+                <div class="form-group">
+                    <label for="loginName">订单号:</label>
+                    <input type="text" class="form-control" id="loginName" name="orderId" placeholder="请输入帐号"
+                           value="${params.orderId}">
+                </div>
+                <div class="form-group">
+                    <input type="hidden" name="pageNum" value="${pageInfo.pageNum}" id="pageNum">
+                    <label for="userName">姓名:</label>
+                    <input type="text" class="form-control" id="userName" name="name" placeholder="请输入姓名"
+                           value="${params.name}">
+                </div>
 
+
+                <div class="form-group">
+                    <label for="status">订单状态</label>
+                    <select class="form-control" name="status" id="status">
+                        <option value="-1">全部</option>
+                        <option value="0" >待支付</option>
+                        <option value="1" >买家已支付待发货</option>
+                        <option value="2" >卖家已发货待收货</option>
+                        <option value="3" >交易已完成</option>
+                        <option value="4" >订单已取消</option>
+                    </select>
+                </div>
+                <input type="submit" value="查询" class="btn btn-primary" id="doSearch">
+            </form>
+        </div>
+        <br>
         <%--添加系统用户 start--%>
 <%--        <input type="button" value="添加系统用户" class="btn btn-primary" id="doAddManger">--%>
         <div class="show-list text-center" style="position: relative; top: 10px;">
@@ -176,7 +206,7 @@
                                 <span>
                                     <c:if test="${order.status == 0}">待支付</c:if>
                                     <c:if test="${order.status == 1}">
-                                        <button class="btn btn_info" onclick="showConfirmModal(${order.id},${order.customerId})" >确认发货</button>
+                                        <button  type="button" class="btn btn-success" onclick="showConfirmModal(${order.id},${order.customerId})" >确认发货</button>
                                     </c:if>
                                     <c:if test="${order.status == 2}">卖家已发货待收货</c:if>
                                     <c:if test="${order.status == 3}">交易已完成</c:if>

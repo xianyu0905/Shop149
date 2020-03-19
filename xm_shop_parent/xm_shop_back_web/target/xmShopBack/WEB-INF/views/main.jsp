@@ -43,6 +43,9 @@
             $("#order-set").click(function () {
                 $("#frame-id").attr("src", "${pageContext.request.contextPath}/admin/order/allOrders");
             });
+            $("#analysis-set").click(function () {
+                $("#frame-id").attr("src", "${pageContext.request.contextPath}/admin/analysis/all");
+            });
             // autoFooterHeight();
         });
 
@@ -99,6 +102,7 @@
             <div class="row user-setting">
                 <div class="col-xs-2 user-wrap">
                     <ul class="list-group">
+
                         <li class="list-group-item active myLi" name="userSet" id="product-type-set">
                             <i class="glyphicon glyphicon-bookmark"></i> &nbsp;商品类型管理
                         </li>
@@ -117,6 +121,9 @@
                             </li>
                             <li class="list-group-item myLi" name="orderSet" id="order-set">
                                 <i class="glyphicon glyphicon-usd"></i> 订单管理
+                            </li>
+                            <li class="list-group-item  myLi" name="analysisSet" id="analysis-set">
+                                <i class="glyphicon glyphicon-bookmark"></i> &nbsp;数据分析
                             </li>
                         </c:if>
                     </ul>

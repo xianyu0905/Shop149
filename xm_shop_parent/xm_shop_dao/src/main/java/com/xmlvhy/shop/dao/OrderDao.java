@@ -4,6 +4,7 @@ import com.xmlvhy.shop.pojo.Order;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Author: 小莫
@@ -31,4 +32,10 @@ public interface OrderDao {
                                    @Param("status") Integer status);
 
     Order selectOrderByOutTradeNo(String outTradeNo);
+
+    List<Map<String, Object>> getSaleTypeAnalysis();
+
+    List<Order> getOrdersByParams(@Param("orderId") String orderId,
+                                  @Param("name") String name,
+                                  @Param("status") Integer status);
 }

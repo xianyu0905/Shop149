@@ -8,6 +8,7 @@ import com.xmlvhy.shop.common.constant.PaginationConstant;
 import com.xmlvhy.shop.common.exception.OrderCartNotFoundException;
 import com.xmlvhy.shop.common.utils.ResponseResult;
 import com.xmlvhy.shop.common.utils.StringUtil;
+import com.xmlvhy.shop.params.OrderParam;
 import com.xmlvhy.shop.pojo.*;
 import com.xmlvhy.shop.service.CartService;
 import com.xmlvhy.shop.service.OrderItemService;
@@ -67,6 +68,28 @@ public class OrderController {
         List<OrderVo> orderVoList = orderService.getAllOrders();
         PageInfo<OrderVo> pageInfo = new PageInfo<>(orderVoList);
         model.addAttribute("pageInfo",pageInfo);
+        log.info("所有订单列表:"+ JSON.toJSONString(orderVoList));
+        return "orderManager";
+    }
+
+    /**
+     *功能描述: 客户所有订单展示列表
+     * @Author 小莫
+     * @Date 11:46 2019/03/26
+     * @Param []
+     * @return java.lang.String
+     */
+    @RequestMapping("/getOrdersByParams")
+    public String getOrdersByParams(OrderParam orderParam, Integer pageNum, Model model){
+//        if (ObjectUtils.isEmpty(pageNum)) {
+//            pageNum = PaginationConstant.PAGE_NUM;
+//        }
+//        PageHelper.startPage(pageNum,15);
+        //获取所有订单列表
+        List<OrderVo> orderVoList = orderService.getOrdersByParams(orderParam);
+        PageInfo<OrderVo> pageInfo = new PageInfo<>(orderVoList);
+        model.addAttribute("pageInfo",pageInfo);
+        model.addAttribute("params",orderParam);
         log.info("所有订单列表:"+ JSON.toJSONString(orderVoList));
         return "orderManager";
     }

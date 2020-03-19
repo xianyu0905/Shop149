@@ -1,5 +1,6 @@
 package com.xmlvhy.shop.service;
 
+import com.xmlvhy.shop.params.OrderParam;
 import com.xmlvhy.shop.pojo.Order;
 import com.xmlvhy.shop.vo.OrderVo;
 
@@ -39,4 +40,8 @@ public interface OrderService {
     String getWxPayUrl(Order order,String ip) throws Exception;
 
     Map<String,String> getWxPayResultMap(Order order, String ip) throws Exception;
+
+    List<Map<String, Object>> getSaleTypeAnalysis();
+
+    List<OrderVo> getOrdersByParams(OrderParam orderParam);
 }

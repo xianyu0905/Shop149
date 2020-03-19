@@ -60,6 +60,32 @@
           order by o.create_date desc
     </select>
 
+    <select id="getOrdersByParams" resultMap="OrderMap2">
+        select o.id,o.order_number,o.price,o.create_date,o.address,o.product_number,o.customer_id,o.status,t.*
+        from t_order o
+        left join t_customer t on o.customer_id = t.id
+        <where>
+            <if test="orderId !=null and orderId !=''">
+                o.order_number = #{orderId}
+            </if>
+            <if test="name !=null and name !=''">
+                AND t.name LIKE concat(concat('%',#{name}),'%')
+            </if>
+            <if test="status !=null and status!='' and status !='-1' or status ==0">
+                AND o.status = #{status}
+            </if>
+        </where>
+          order by o.create_date desc
+    </select>
+    <select id="getSaleTypeAnalysis" resultType="java.util.Map">
+        select pt.`name`, p.product_type_id as type,COUNT(oi.num) AS num
+				FROM t_order_item oi
+        left join t_product p on p.id = oi.product_id
+				left join t_product_type pt on pt.id = p.product_type_id
+				GROUP BY pt.`name`
+				ORDER BY type ASC
+    </select>
+
     <select id="selectOrdersByCustomerId" resultMap="OrderMap2">
         select o.id,o.order_number,o.price,o.create_date,o.address,o.product_number,o.status
         from t_order o

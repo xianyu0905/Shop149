@@ -7,6 +7,7 @@ import com.xmlvhy.shop.common.utils.HttpUtils;
 import com.xmlvhy.shop.common.utils.WxPayUtils;
 import com.xmlvhy.shop.dao.OrderDao;
 import com.xmlvhy.shop.dao.OrderItemDao;
+import com.xmlvhy.shop.params.OrderParam;
 import com.xmlvhy.shop.pojo.Order;
 import com.xmlvhy.shop.pojo.OrderItem;
 import com.xmlvhy.shop.service.OrderService;
@@ -372,5 +373,26 @@ public class OrderServiceImpl implements OrderService {
             return payResultMap;
         }
         return null;
+    }
+
+    @Override
+    public List<Map<String, Object>> getSaleTypeAnalysis() {
+        return orderDao.getSaleTypeAnalysis();
+    }
+
+    @Override
+    public List<OrderVo> getOrdersByParams(OrderParam orderParam) {
+        List<Order> orderList = orderDao.getOrdersByParams(orderParam.getOrderId(),orderParam.getName(),orderParam.getStatus());
+        List<OrderVo> orderVoList = new ArrayList<>();
+        //循环遍历出每个订单对应的明细，每个封装到OrderVo中，最终返回一个orderVo的集合
+        for(Order order :orderList){
+            //通过订单id 查询出该笔订单的明细
+            OrderVo orderVo = new OrderVo();
+            List<OrderItem> orderItemList = orderItemDao.selectOrderItemsByOrder(order.getId());
+            BeanUtils.copyProperties(order,orderVo);
+            orderVo.setOrderItemList(orderItemList);
+            orderVoList.add(orderVo);
+        }
+        return orderVoList;
     }
 }
